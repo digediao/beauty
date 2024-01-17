@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.system.mapper.TBrandMapper">
-    
+
     <resultMap type="TBrand" id="TBrandResult">
         <result property="id"    column="id"    />
         <result property="name"    column="name"    />
@@ -18,28 +18,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectTBrandVo">
-        select id, name, desc, img, del_flag, sort, create_time, update_time, create_user, update_user from t_brand
+        select id, `name`, `desc`, img, del_flag, sort, create_time, update_time, create_user, update_user from t_brand
     </sql>
 
     <select id="selectTBrandList" parameterType="TBrand" resultMap="TBrandResult">
         <include refid="selectTBrandVo"/>
-        <where>  
-            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
-            <if test="desc != null  and desc != ''"> and desc = #{desc}</if>
+        <where>
+            <if test="name != null  and name != ''"> and `name` like concat('%', #{name}, '%')</if>
+            <if test="desc != null  and desc != ''"> and `desc` = #{desc}</if>
             <if test="img != null  and img != ''"> and img = #{img}</if>
         </where>
     </select>
-    
+
     <select id="selectTBrandById" parameterType="Long" resultMap="TBrandResult">
         <include refid="selectTBrandVo"/>
         where id = #{id}
     </select>
-        
+
     <insert id="insertTBrand" parameterType="TBrand" useGeneratedKeys="true" keyProperty="id">
         insert into t_brand
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="name != null">name,</if>
-            <if test="desc != null">desc,</if>
+            <if test="name != null">`name`,</if>
+            <if test="desc != null">`desc`,</if>
             <if test="img != null">img,</if>
             <if test="delFlag != null">del_flag,</if>
             <if test="sort != null">sort,</if>
@@ -64,8 +64,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <update id="updateTBrand" parameterType="TBrand">
         update t_brand
         <trim prefix="SET" suffixOverrides=",">
-            <if test="name != null">name = #{name},</if>
-            <if test="desc != null">desc = #{desc},</if>
+            <if test="name != null">`name` = #{name},</if>
+            <if test="desc != null">`desc` = #{desc},</if>
             <if test="img != null">img = #{img},</if>
             <if test="delFlag != null">del_flag = #{delFlag},</if>
             <if test="sort != null">sort = #{sort},</if>
@@ -82,7 +82,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <delete id="deleteTBrandByIds" parameterType="String">
-        delete from t_brand where id in 
+        delete from t_brand where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>
