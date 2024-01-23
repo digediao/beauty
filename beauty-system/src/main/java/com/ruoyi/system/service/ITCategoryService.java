@@ -1,15 +1,15 @@
 package com.ruoyi.system.service;
 
 import java.util.List;
-import com.ruoyi.system.domain.TProductCategory;
+import com.ruoyi.system.domain.TCategory;
 
 /**
  * 商品分类Service接口
  * 
  * @author ruoyi
- * @date 2024-01-16
+ * @date 2024-01-18
  */
-public interface ITProductCategoryService 
+public interface ITCategoryService 
 {
     /**
      * 查询商品分类
@@ -17,31 +17,31 @@ public interface ITProductCategoryService
      * @param id 商品分类主键
      * @return 商品分类
      */
-    public TProductCategory selectTProductCategoryById(Long id);
+    public TCategory selectTCategoryById(Long id);
 
     /**
      * 查询商品分类列表
      * 
-     * @param tProductCategory 商品分类
+     * @param tCategory 商品分类
      * @return 商品分类集合
      */
-    public List<TProductCategory> selectTProductCategoryList(TProductCategory tProductCategory);
+    public List<TCategory> selectTCategoryList(TCategory tCategory);
 
     /**
      * 新增商品分类
      * 
-     * @param tProductCategory 商品分类
+     * @param tCategory 商品分类
      * @return 结果
      */
-    public int insertTProductCategory(TProductCategory tProductCategory);
+    public int insertTCategory(TCategory tCategory);
 
     /**
      * 修改商品分类
      * 
-     * @param tProductCategory 商品分类
+     * @param tCategory 商品分类
      * @return 结果
      */
-    public int updateTProductCategory(TProductCategory tProductCategory);
+    public int updateTCategory(TCategory tCategory);
 
     /**
      * 批量删除商品分类
@@ -49,7 +49,7 @@ public interface ITProductCategoryService
      * @param ids 需要删除的商品分类主键集合
      * @return 结果
      */
-    public int deleteTProductCategoryByIds(Long[] ids);
+    public int deleteTCategoryByIds(Long[] ids);
 
     /**
      * 删除商品分类信息
@@ -57,5 +57,5 @@ public interface ITProductCategoryService
      * @param id 商品分类主键
      * @return 结果
      */
-    public int deleteTProductCategoryById(Long id);
+    public int deleteTCategoryById(Long id);
 }

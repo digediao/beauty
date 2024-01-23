@@ -16,8 +16,8 @@ import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.enums.BusinessType;
-import com.ruoyi.system.domain.TProductCategory;
-import com.ruoyi.system.service.ITProductCategoryService;
+import com.ruoyi.system.domain.TCategory;
+import com.ruoyi.system.service.ITCategoryService;
 import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.common.core.page.TableDataInfo;
 
@@ -25,24 +25,24 @@ import com.ruoyi.common.core.page.TableDataInfo;
  * 商品分类Controller
  * 
  * @author ruoyi
- * @date 2024-01-16
+ * @date 2024-01-18
  */
 @RestController
 @RequestMapping("/beauty/category")
-public class TProductCategoryController extends BaseController
+public class TCategoryController extends BaseController
 {
     @Autowired
-    private ITProductCategoryService tProductCategoryService;
+    private ITCategoryService tCategoryService;
 
     /**
      * 查询商品分类列表
      */
     @PreAuthorize("@ss.hasPermi('beauty:category:list')")
     @GetMapping("/list")
-    public TableDataInfo list(TProductCategory tProductCategory)
+    public TableDataInfo list(TCategory tCategory)
     {
         startPage();
-        List<TProductCategory> list = tProductCategoryService.selectTProductCategoryList(tProductCategory);
+        List<TCategory> list = tCategoryService.selectTCategoryList(tCategory);
         return getDataTable(list);
     }
 
@@ -52,10 +52,10 @@ public class TProductCategoryController extends BaseController
     @PreAuthorize("@ss.hasPermi('beauty:category:export')")
     @Log(title = "商品分类", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(HttpServletResponse response, TProductCategory tProductCategory)
+    public void export(HttpServletResponse response, TCategory tCategory)
     {
-        List<TProductCategory> list = tProductCategoryService.selectTProductCategoryList(tProductCategory);
-        ExcelUtil<TProductCategory> util = new ExcelUtil<TProductCategory>(TProductCategory.class);
+        List<TCategory> list = tCategoryService.selectTCategoryList(tCategory);
+        ExcelUtil<TCategory> util = new ExcelUtil<TCategory>(TCategory.class);
         util.exportExcel(response, list, "商品分类数据");
     }
 
@@ -66,7 +66,7 @@ public class TProductCategoryController extends BaseController
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") Long id)
     {
-        return success(tProductCategoryService.selectTProductCategoryById(id));
+        return success(tCategoryService.selectTCategoryById(id));
     }
 
     /**
@@ -75,9 +75,9 @@ public class TProductCategoryController extends BaseController
     @PreAuthorize("@ss.hasPermi('beauty:category:add')")
     @Log(title = "商品分类", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody TProductCategory tProductCategory)
+    public AjaxResult add(@RequestBody TCategory tCategory)
     {
-        return toAjax(tProductCategoryService.insertTProductCategory(tProductCategory));
+        return toAjax(tCategoryService.insertTCategory(tCategory));
     }
 
     /**
@@ -86,9 +86,9 @@ public class TProductCategoryController extends BaseController
     @PreAuthorize("@ss.hasPermi('beauty:category:edit')")
     @Log(title = "商品分类", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody TProductCategory tProductCategory)
+    public AjaxResult edit(@RequestBody TCategory tCategory)
     {
-        return toAjax(tProductCategoryService.updateTProductCategory(tProductCategory));
+        return toAjax(tCategoryService.updateTCategory(tCategory));
     }
 
     /**
@@ -99,6 +99,6 @@ public class TProductCategoryController extends BaseController
 	@DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids)
     {
-        return toAjax(tProductCategoryService.deleteTProductCategoryByIds(ids));
+        return toAjax(tCategoryService.deleteTCategoryByIds(ids));
     }
 }

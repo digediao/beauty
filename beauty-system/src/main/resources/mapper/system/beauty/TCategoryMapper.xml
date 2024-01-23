@@ -2,15 +2,11 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ruoyi.system.mapper.TProductCategoryMapper">
+<mapper namespace="com.ruoyi.system.mapper.TCategoryMapper">
     
-    <resultMap type="TProductCategory" id="TProductCategoryResult">
+    <resultMap type="TCategory" id="TCategoryResult">
         <result property="id"    column="id"    />
         <result property="name"    column="name"    />
-        <result property="pid"    column="pid"    />
-        <result property="state"    column="state"    />
-        <result property="effection"    column="effection"    />
-        <result property="category"    column="category"    />
         <result property="delFlag"    column="del_flag"    />
         <result property="status"    column="status"    />
         <result property="sort"    column="sort"    />
@@ -20,35 +16,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="updateUser"    column="update_user"    />
     </resultMap>
 
-    <sql id="selectTProductCategoryVo">
-        select id, name, pid, state, effection, category, del_flag, status, sort, create_time, update_time, create_user, update_user from t_product_category
+    <sql id="selectTCategoryVo">
+        select id, name, del_flag, status, sort, create_time, update_time, create_user, update_user from t_category
     </sql>
 
-    <select id="selectTProductCategoryList" parameterType="TProductCategory" resultMap="TProductCategoryResult">
-        <include refid="selectTProductCategoryVo"/>
+    <select id="selectTCategoryList" parameterType="TCategory" resultMap="TCategoryResult">
+        <include refid="selectTCategoryVo"/>
         <where>  
             <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
-            <if test="pid != null "> and pid = #{pid}</if>
-            <if test="state != null  and state != ''"> and state = #{state}</if>
-            <if test="effection != null  and effection != ''"> and effection = #{effection}</if>
-            <if test="category != null  and category != ''"> and category = #{category}</if>
             <if test="status != null "> and status = #{status}</if>
+            <if test="sort != null "> and sort = #{sort}</if>
         </where>
     </select>
     
-    <select id="selectTProductCategoryById" parameterType="Long" resultMap="TProductCategoryResult">
-        <include refid="selectTProductCategoryVo"/>
+    <select id="selectTCategoryById" parameterType="Long" resultMap="TCategoryResult">
+        <include refid="selectTCategoryVo"/>
         where id = #{id}
     </select>
         
-    <insert id="insertTProductCategory" parameterType="TProductCategory" useGeneratedKeys="true" keyProperty="id">
-        insert into t_product_category
+    <insert id="insertTCategory" parameterType="TCategory" useGeneratedKeys="true" keyProperty="id">
+        insert into t_category
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="name != null">name,</if>
-            <if test="pid != null">pid,</if>
-            <if test="state != null">state,</if>
-            <if test="effection != null">effection,</if>
-            <if test="category != null">category,</if>
             <if test="delFlag != null">del_flag,</if>
             <if test="status != null">status,</if>
             <if test="sort != null">sort,</if>
@@ -59,10 +48,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="name != null">#{name},</if>
-            <if test="pid != null">#{pid},</if>
-            <if test="state != null">#{state},</if>
-            <if test="effection != null">#{effection},</if>
-            <if test="category != null">#{category},</if>
             <if test="delFlag != null">#{delFlag},</if>
             <if test="status != null">#{status},</if>
             <if test="sort != null">#{sort},</if>
@@ -73,14 +58,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          </trim>
     </insert>
 
-    <update id="updateTProductCategory" parameterType="TProductCategory">
-        update t_product_category
+    <update id="updateTCategory" parameterType="TCategory">
+        update t_category
         <trim prefix="SET" suffixOverrides=",">
             <if test="name != null">name = #{name},</if>
-            <if test="pid != null">pid = #{pid},</if>
-            <if test="state != null">state = #{state},</if>
-            <if test="effection != null">effection = #{effection},</if>
-            <if test="category != null">category = #{category},</if>
             <if test="delFlag != null">del_flag = #{delFlag},</if>
             <if test="status != null">status = #{status},</if>
             <if test="sort != null">sort = #{sort},</if>
@@ -92,12 +73,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where id = #{id}
     </update>
 
-    <delete id="deleteTProductCategoryById" parameterType="Long">
-        delete from t_product_category where id = #{id}
+    <delete id="deleteTCategoryById" parameterType="Long">
+        delete from t_category where id = #{id}
     </delete>
 
-    <delete id="deleteTProductCategoryByIds" parameterType="String">
-        delete from t_product_category where id in 
+    <delete id="deleteTCategoryByIds" parameterType="String">
+        delete from t_category where id in 
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>

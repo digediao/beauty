@@ -9,6 +9,16 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
+      <el-form-item label="订单状态" prop="status">
+        <el-select v-model="queryParams.status" placeholder="请选择订单状态" clearable>
+          <el-option
+            v-for="dict in dict.type.order_status"
+            :key="dict.value"
+            :label="dict.label"
+            :value="dict.value"
+          />
+        </el-select>
+      </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
@@ -65,7 +75,11 @@
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="id" align="center" prop="id" />
       <el-table-column label="订单" align="center" prop="orderId" />
-      <el-table-column label="订单状态" align="center" prop="status" />
+      <el-table-column label="订单状态" align="center" prop="status">
+        <template slot-scope="scope">
+          <dict-tag :options="dict.type.order_status" :value="scope.row.status"/>
+        </template>
+      </el-table-column>
       <el-table-column label="备注" align="center" prop="remark" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
@@ -101,6 +115,15 @@
         <el-form-item label="订单" prop="orderId">
           <el-input v-model="form.orderId" placeholder="请输入订单" />
         </el-form-item>
+        <el-form-item label="订单状态" prop="status">
+          <el-radio-group v-model="form.status">
+            <el-radio
+              v-for="dict in dict.type.order_status"
+              :key="dict.value"
+              :label="parseInt(dict.value)"
+            >{{dict.label}}</el-radio>
+          </el-radio-group>
+        </el-form-item>
         <el-form-item label="备注">
           <editor v-model="form.remark" :min-height="192"/>
         </el-form-item>
@@ -118,6 +141,7 @@ import { listHistory, getHistory, delHistory, addHistory, updateHistory } from "
 
 export default {
   name: "History",
+  dicts: ['order_status'],
   data() {
     return {
       // 遮罩层

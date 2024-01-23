@@ -1,58 +1,45 @@
 package com.ruoyi.system.domain;
 
+import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.annotation.Excel;
 import com.ruoyi.common.core.domain.BaseEntity;
 
 /**
- * 商品分类对象 t_product_category
+ * 分类菜单对象 t_menu
  * 
  * @author ruoyi
- * @date 2024-01-16
+ * @date 2024-01-18
  */
-public class TProductCategory extends BaseEntity
+public class TMenu extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 
     /** id */
     private Long id;
 
-    /** 商品分类名称 */
-    @Excel(name = "商品分类名称")
+    /** 菜单名称 */
+    @Excel(name = "菜单名称")
     private String name;
 
-    /** 父id */
-    @Excel(name = "父id")
+    /** 父级id */
+    @Excel(name = "父级id")
     private Long pid;
 
-    /** 商品形态 */
-    @Excel(name = "商品形态")
-    private String state;
-
-    /** 妆效 */
-    @Excel(name = "妆效")
-    private String effection;
-
-    /** 类别 */
-    @Excel(name = "类别")
-    private String category;
-
-    /** 0存在 1删除 */
-    private Long delFlag;
-
-    /** 0显示 1隐藏 */
-    @Excel(name = "0显示 1隐藏")
-    private Long status;
-
     /** 排序 */
+    @Excel(name = "排序")
     private Long sort;
+
+    /** 0存在 1 删除 */
+    private Long delFlag;
 
     /** $column.columnComment */
     private String createUser;
 
     /** $column.columnComment */
-    private String updateUser;
+    private Date updateUser;
 
     public void setId(Long id) 
     {
@@ -81,32 +68,14 @@ public class TProductCategory extends BaseEntity
     {
         return pid;
     }
-    public void setState(String state) 
+    public void setSort(Long sort) 
     {
-        this.state = state;
+        this.sort = sort;
     }
 
-    public String getState() 
+    public Long getSort() 
     {
-        return state;
-    }
-    public void setEffection(String effection) 
-    {
-        this.effection = effection;
-    }
-
-    public String getEffection() 
-    {
-        return effection;
-    }
-    public void setCategory(String category) 
-    {
-        this.category = category;
-    }
-
-    public String getCategory() 
-    {
-        return category;
+        return sort;
     }
     public void setDelFlag(Long delFlag) 
     {
@@ -117,24 +86,6 @@ public class TProductCategory extends BaseEntity
     {
         return delFlag;
     }
-    public void setStatus(Long status) 
-    {
-        this.status = status;
-    }
-
-    public Long getStatus() 
-    {
-        return status;
-    }
-    public void setSort(Long sort) 
-    {
-        this.sort = sort;
-    }
-
-    public Long getSort() 
-    {
-        return sort;
-    }
     public void setCreateUser(String createUser) 
     {
         this.createUser = createUser;
@@ -144,12 +95,12 @@ public class TProductCategory extends BaseEntity
     {
         return createUser;
     }
-    public void setUpdateUser(String updateUser) 
+    public void setUpdateUser(Date updateUser) 
     {
         this.updateUser = updateUser;
     }
 
-    public String getUpdateUser() 
+    public Date getUpdateUser() 
     {
         return updateUser;
     }
@@ -160,12 +111,8 @@ public class TProductCategory extends BaseEntity
             .append("id", getId())
             .append("name", getName())
             .append("pid", getPid())
-            .append("state", getState())
-            .append("effection", getEffection())
-            .append("category", getCategory())
-            .append("delFlag", getDelFlag())
-            .append("status", getStatus())
             .append("sort", getSort())
+            .append("delFlag", getDelFlag())
             .append("createTime", getCreateTime())
             .append("updateTime", getUpdateTime())
             .append("createUser", getCreateUser())

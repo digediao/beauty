@@ -9,37 +9,15 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="父id" prop="pid">
-        <el-input
-          v-model="queryParams.pid"
-          placeholder="请输入父id"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="商品形态" prop="state">
-        <el-input
-          v-model="queryParams.state"
-          placeholder="请输入商品形态"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="妆效" prop="effection">
-        <el-input
-          v-model="queryParams.effection"
-          placeholder="请输入妆效"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="类别" prop="category">
-        <el-input
-          v-model="queryParams.category"
-          placeholder="请输入类别"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
+      <el-form-item label="状态" prop="status">
+        <el-select v-model="queryParams.status" placeholder="请选择状态" clearable>
+          <el-option
+            v-for="dict in dict.type.status"
+            :key="dict.value"
+            :label="dict.label"
+            :value="dict.value"
+          />
+        </el-select>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
@@ -97,11 +75,11 @@
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="id" align="center" prop="id" />
       <el-table-column label="商品分类名称" align="center" prop="name" />
-      <el-table-column label="父id" align="center" prop="pid" />
-      <el-table-column label="商品形态" align="center" prop="state" />
-      <el-table-column label="妆效" align="center" prop="effection" />
-      <el-table-column label="类别" align="center" prop="category" />
-      <el-table-column label="0显示 1隐藏" align="center" prop="status" />
+      <el-table-column label="状态" align="center" prop="status">
+        <template slot-scope="scope">
+          <dict-tag :options="dict.type.status" :value="scope.row.status"/>
+        </template>
+      </el-table-column>
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -136,17 +114,14 @@
         <el-form-item label="商品分类名称" prop="name">
           <el-input v-model="form.name" placeholder="请输入商品分类名称" />
         </el-form-item>
-        <el-form-item label="父id" prop="pid">
-          <el-input v-model="form.pid" placeholder="请输入父id" />
-        </el-form-item>
-        <el-form-item label="商品形态" prop="state">
-          <el-input v-model="form.state" placeholder="请输入商品形态" />
-        </el-form-item>
-        <el-form-item label="妆效" prop="effection">
-          <el-input v-model="form.effection" placeholder="请输入妆效" />
-        </el-form-item>
-        <el-form-item label="类别" prop="category">
-          <el-input v-model="form.category" placeholder="请输入类别" />
+        <el-form-item label="状态" prop="status">
+          <el-radio-group v-model="form.status">
+            <el-radio
+              v-for="dict in dict.type.status"
+              :key="dict.value"
+              :label="parseInt(dict.value)"
+            >{{dict.label}}</el-radio>
+          </el-radio-group>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -162,6 +137,7 @@ import { listCategory, getCategory, delCategory, addCategory, updateCategory } f
 
 export default {
   name: "Category",
+  dicts: ['status'],
   data() {
     return {
       // 遮罩层
@@ -187,10 +163,6 @@ export default {
         pageNum: 1,
         pageSize: 10,
         name: null,
-        pid: null,
-        state: null,
-        effection: null,
-        category: null,
         status: null,
       },
       // 表单参数
@@ -223,10 +195,6 @@ export default {
       this.form = {
         id: null,
         name: null,
-        pid: null,
-        state: null,
-        effection: null,
-        category: null,
         delFlag: null,
         status: null,
         sort: null,

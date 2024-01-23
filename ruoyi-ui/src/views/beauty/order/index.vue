@@ -33,6 +33,16 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
+      <el-form-item label="订单状态" prop="status">
+        <el-select v-model="queryParams.status" placeholder="请选择订单状态" clearable>
+          <el-option
+            v-for="dict in dict.type.order_status"
+            :key="dict.value"
+            :label="dict.label"
+            :value="dict.value"
+          />
+        </el-select>
+      </el-form-item>
       <el-form-item label="下单时间" prop="orderTime">
         <el-date-picker clearable
           v-model="queryParams.orderTime"
@@ -124,14 +134,11 @@
       <el-table-column label="订单流水号" align="center" prop="orderUuid" />
       <el-table-column label="商品" align="center" prop="productId" />
       <el-table-column label="金额" align="center" prop="price" />
-      <el-table-column label="1 待支付
-2 已支付
-3 已发货
-4 已完成
-5 已取消
-6 退款中
-7 退款成功
-8 退款失败" align="center" prop="status" />
+      <el-table-column label="订单状态" align="center" prop="status">
+        <template slot-scope="scope">
+          <dict-tag :options="dict.type.order_status" :value="scope.row.status"/>
+        </template>
+      </el-table-column>
       <el-table-column label="下单时间" align="center" prop="orderTime" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.orderTime, '{y}-{m}-{d}') }}</span>
@@ -192,6 +199,15 @@
         <el-form-item label="金额" prop="price">
           <el-input v-model="form.price" placeholder="请输入金额" />
         </el-form-item>
+        <el-form-item label="订单状态" prop="status">
+          <el-radio-group v-model="form.status">
+            <el-radio
+              v-for="dict in dict.type.order_status"
+              :key="dict.value"
+              :label="parseInt(dict.value)"
+            >{{dict.label}}</el-radio>
+          </el-radio-group>
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submitForm">确 定</el-button>
@@ -206,6 +222,7 @@ import { listOrder, getOrder, delOrder, addOrder, updateOrder } from "@/api/beau
 
 export default {
   name: "Order",
+  dicts: ['order_status'],
   data() {
     return {
       // 遮罩层
