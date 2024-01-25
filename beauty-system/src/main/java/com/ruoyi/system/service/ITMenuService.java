@@ -2,18 +2,21 @@ package com.ruoyi.system.service;
 
 import java.util.List;
 import com.ruoyi.system.domain.TMenu;
+import com.ruoyi.system.domain.dto.AllItemDto;
+import com.ruoyi.system.domain.dto.GoodsTypesDto;
+import com.ruoyi.system.domain.dto.TypeSortDto;
 
 /**
  * 分类菜单Service接口
- * 
+ *
  * @author ruoyi
  * @date 2024-01-18
  */
-public interface ITMenuService 
+public interface ITMenuService
 {
     /**
      * 查询分类菜单
-     * 
+     *
      * @param id 分类菜单主键
      * @return 分类菜单
      */
@@ -21,7 +24,7 @@ public interface ITMenuService
 
     /**
      * 查询分类菜单列表
-     * 
+     *
      * @param tMenu 分类菜单
      * @return 分类菜单集合
      */
@@ -29,7 +32,7 @@ public interface ITMenuService
 
     /**
      * 新增分类菜单
-     * 
+     *
      * @param tMenu 分类菜单
      * @return 结果
      */
@@ -37,7 +40,7 @@ public interface ITMenuService
 
     /**
      * 修改分类菜单
-     * 
+     *
      * @param tMenu 分类菜单
      * @return 结果
      */
@@ -45,7 +48,7 @@ public interface ITMenuService
 
     /**
      * 批量删除分类菜单
-     * 
+     *
      * @param ids 需要删除的分类菜单主键集合
      * @return 结果
      */
@@ -53,9 +56,13 @@ public interface ITMenuService
 
     /**
      * 删除分类菜单信息
-     * 
+     *
      * @param id 分类菜单主键
      * @return 结果
      */
     public int deleteTMenuById(Long id);
+
+    GoodsTypesDto getTypes();
+
+    AllItemDto getItemsByType(TypeSortDto typeSortDto);
 }

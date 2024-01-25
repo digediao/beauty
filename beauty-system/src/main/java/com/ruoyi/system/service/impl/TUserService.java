@@ -41,7 +41,7 @@ public class TUserService {
         }
 
         // 构造用户信息
-        TUserDto userDto = TUserDto.builder()
+        return TUserDto.builder()
                 .userId(loginUser.getUser().getUserId())
                 .account(loginUser.getUsername())
                 .recipient(recipient)
@@ -54,7 +54,5 @@ public class TUserService {
                 .token(loginUser.getToken())
                 .status(loginUser.getUser().getStatus())
                 .build();
-
-        return userDto;
     }
 }

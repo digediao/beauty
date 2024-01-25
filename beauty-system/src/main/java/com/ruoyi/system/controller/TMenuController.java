@@ -2,16 +2,14 @@ package com.ruoyi.system.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ruoyi.common.core.domain.R;
+import com.ruoyi.system.domain.dto.AllItemDto;
+import com.ruoyi.system.domain.dto.GoodsTypesDto;
+import com.ruoyi.system.domain.dto.TypeSortDto;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
@@ -23,7 +21,7 @@ import com.ruoyi.common.core.page.TableDataInfo;
 
 /**
  * 分类菜单Controller
- * 
+ *
  * @author ruoyi
  * @date 2024-01-18
  */
@@ -33,6 +31,28 @@ public class TMenuController extends BaseController
 {
     @Autowired
     private ITMenuService tMenuService;
+
+    /**
+     * 获取类别：品牌、分类、妆效、功效等，筛选：销量、价格高低、好评
+     * @return
+     */
+    @GetMapping("/getTypes")
+    public R getTypes() {
+        GoodsTypesDto list = tMenuService.getTypes();
+        return R.ok(list);
+    }
+
+    /**
+     * 根据类型、排序等筛选：销量、价格高低、好评
+     */
+    @PostMapping("/getItemsByType")
+    public AjaxResult getItemsByType(@RequestBody TypeSortDto typeSortDto) {
+        AllItemDto result = tMenuService.getItemsByType(typeSortDto);
+        return AjaxResult.success(result);
+    }
+
+
+    /*==============================================*/
 
     /**
      * 查询分类菜单列表

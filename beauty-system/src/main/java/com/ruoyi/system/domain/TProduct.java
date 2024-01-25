@@ -1,6 +1,9 @@
 package com.ruoyi.system.domain;
 
 import java.math.BigDecimal;
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.annotation.Excel;
@@ -8,11 +11,11 @@ import com.ruoyi.common.core.domain.BaseEntity;
 
 /**
  * 商品对象 t_product
- * 
+ *
  * @author ruoyi
  * @date 2024-01-16
  */
-public class TProduct extends BaseEntity
+public class TProduct
 {
     private static final long serialVersionUID = 1L;
 
@@ -30,6 +33,15 @@ public class TProduct extends BaseEntity
     /** 品牌 */
     @Excel(name = "品牌")
     private Long brandId;
+
+    @Excel(name = "分类")
+    private Long categoryId;
+
+    @Excel(name = "商店")
+    private Long storeId;
+
+    @Excel(name = "订单成交数")
+    private Integer orderNum;
 
     /** 图片 */
     @Excel(name = "图片")
@@ -63,122 +75,167 @@ public class TProduct extends BaseEntity
     /** $column.columnComment */
     private String updateUser;
 
-    public void setId(Long id) 
+    private Date createTime;
+
+    private Date updateTime;
+
+    public void setId(Long id)
     {
         this.id = id;
     }
 
-    public Long getId() 
+    public Long getId()
     {
         return id;
     }
-    public void setTitle(String title) 
+    public void setTitle(String title)
     {
         this.title = title;
     }
 
-    public String getTitle() 
+    public String getTitle()
     {
         return title;
     }
-    public void setPrice(BigDecimal price) 
+    public void setPrice(BigDecimal price)
     {
         this.price = price;
     }
 
-    public BigDecimal getPrice() 
+    public BigDecimal getPrice()
     {
         return price;
     }
-    public void setBrandId(Long brandId) 
+    public void setBrandId(Long brandId)
     {
         this.brandId = brandId;
     }
 
-    public Long getBrandId() 
+    public Long getBrandId()
     {
         return brandId;
     }
-    public void setImg(String img) 
+    public void setImg(String img)
     {
         this.img = img;
     }
 
-    public String getImg() 
+    public String getImg()
     {
         return img;
     }
-    public void setDesc(String desc) 
+    public void setDesc(String desc)
     {
         this.desc = desc;
     }
 
-    public String getDesc() 
+    public String getDesc()
     {
         return desc;
     }
-    public void setHeight(BigDecimal height) 
+    public void setHeight(BigDecimal height)
     {
         this.height = height;
     }
 
-    public BigDecimal getHeight() 
+    public BigDecimal getHeight()
     {
         return height;
     }
-    public void setNum(Long num) 
+
+    public Long getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(Long storeId) {
+        this.storeId = storeId;
+    }
+
+    public void setNum(Long num)
     {
         this.num = num;
     }
 
-    public Long getNum() 
+    public Long getNum()
     {
         return num;
     }
-    public void setDelFlag(Long delFlag) 
+    public void setDelFlag(Long delFlag)
     {
         this.delFlag = delFlag;
     }
 
-    public Long getDelFlag() 
+    public Long getDelFlag()
     {
         return delFlag;
     }
-    public void setStatus(Long status) 
+    public void setStatus(Long status)
     {
         this.status = status;
     }
 
-    public Long getStatus() 
+    public Long getStatus()
     {
         return status;
     }
-    public void setSort(Long sort) 
+    public void setSort(Long sort)
     {
         this.sort = sort;
     }
 
-    public Long getSort() 
+    public Long getSort()
     {
         return sort;
     }
-    public void setCreateUser(String createUser) 
+    public void setCreateUser(String createUser)
     {
         this.createUser = createUser;
     }
 
-    public String getCreateUser() 
+    public String getCreateUser()
     {
         return createUser;
     }
-    public void setUpdateUser(String updateUser) 
+    public void setUpdateUser(String updateUser)
     {
         this.updateUser = updateUser;
     }
 
-    public String getUpdateUser() 
+    public String getUpdateUser()
     {
         return updateUser;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public Integer getOrderNum() {
+        return orderNum;
+    }
+
+    public void setOrderNum(Integer orderNum) {
+        this.orderNum = orderNum;
     }
 
     @Override
